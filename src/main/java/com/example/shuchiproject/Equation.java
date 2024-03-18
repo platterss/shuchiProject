@@ -23,30 +23,19 @@ public class Equation {
         return constant;
     }
 
+    public double getVertexX() {
+        return (double) (-1 * x) / (2 * xSquared);
+    }
+
+    public double getValue(double x) {
+        return xSquared * Math.pow(x, 2) + this.x * x + constant;
+    }
+
+    public double getFocusY() {
+        return getValue(getVertexX()) + (1.0 / 4 * xSquared);
+    }
+
     public String toString() {
         return xSquared + "x^2 + " + x + "x + " + constant;
-    }
-}
-
-class Derivative extends Equation {
-    private int derivativeX;
-    private int derivativeConstant;
-
-    public Derivative(int xSquared, int x, int constant) {
-        super(xSquared, x, constant);
-        derivativeX = xSquared * 2;
-        derivativeConstant = x;
-    }
-
-    public String toString() {
-        return derivativeX + "x + " + derivativeConstant;
-    }
-
-    public int getA() {
-        return derivativeX;
-    }
-
-    public int getB() {
-        return derivativeConstant;
     }
 }

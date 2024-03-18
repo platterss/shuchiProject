@@ -32,15 +32,15 @@ public class HelloController {
             int b = Integer.parseInt(xText.getText());
             int c = Integer.parseInt(constantText.getText());
 
-            // Assuming Equation and Derivative classes are defined elsewhere and work correctly.
             Equation equation = new Equation(a, b, c);
-            Derivative derivative = new Derivative(a, b, c);
 
-            derivativeText.setText(derivative.toString());
+            String vertex = "(" + equation.getVertexX() + ", " + equation.getValue(equation.getVertexX()) + ")";
+            String focus = "(" + equation.getVertexX() + ", " + equation.getFocusY() + ")";
+
+            derivativeText.setText("Vertex: " + vertex + "\nFocus: " + focus);
 
             Graph graph = new Graph(lineGraph);
             graph.plotEquation(equation.getA(), equation.getB(), equation.getC());
-            graph.plotEquation(derivative.getA(), derivative.getB());
         } else {
             derivativeText.setText("Please enter valid integers for a, b, and c.");
         }
