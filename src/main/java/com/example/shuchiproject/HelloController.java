@@ -41,6 +41,7 @@ public class HelloController {
 
             Graph graph = new Graph(lineGraph);
             graph.plotEquation(equation.getA(), equation.getB(), equation.getC());
+            graph.plotPoint(equation.getVertexX(), equation.getFocusY());
         } else {
             derivativeText.setText("Please enter valid integers for a, b, and c.");
         }

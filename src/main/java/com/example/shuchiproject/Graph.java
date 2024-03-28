@@ -31,4 +31,11 @@ public class Graph {
 
         lineChart.getData().add(series);
     }
+
+    public void plotPoint(double x, double y) {
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.getData().add(new XYChart.Data<>(x, y));
+
+        lineChart.getData().add(series);
+    }
 }

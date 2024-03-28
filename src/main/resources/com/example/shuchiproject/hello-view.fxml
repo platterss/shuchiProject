@@ -9,7 +9,7 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-   <Label text="Derivative Calculator" />
+   <Label text="Parabola Calculator" />
    <TextField prefHeight="26.0" prefWidth="124.0" promptText="a" fx:id="xSquaredText" />
    <TextField promptText="b" fx:id="xText" />
    <TextField fx:id="constantText" promptText="c" />
