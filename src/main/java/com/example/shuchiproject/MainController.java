@@ -14,7 +14,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.ZoomEvent;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable {
     public ComboBox dependentVarBox;
@@ -29,10 +29,10 @@ public class MainController implements Initializable {
     private double yAxisLowerBound;
     private double yAxisUpperBound;
 
-    private final double minXAxisBound = -1000;
-    private final double maxXAxisBound = 1000;
-    private final double minYAxisBound = -1000;
-    private final double maxYAxisBound = 1000;
+    private final double minXAxisBound = -500;
+    private final double maxXAxisBound = 500;
+    private final double minYAxisBound = -500;
+    private final double maxYAxisBound = 500;
 
     private Point2D dragAnchor;
 
@@ -83,7 +83,7 @@ public class MainController implements Initializable {
             plotLine(quadratic.getDerivativeA(), quadratic.getDerivativeB(), "Derivative");
 
         } catch (Exception e) {
-            promptTxt.setText("Please enter valid numbers.");
+            promptTxt.setText("Please enter valid, non-zero numbers.");
         }
     }
 
@@ -176,9 +176,7 @@ public class MainController implements Initializable {
             event.consume();
         });
 
-        graph.setOnMousePressed((MouseEvent event) -> {
-            dragAnchor = new Point2D(event.getX(), event.getY());
-        });
+        graph.setOnMousePressed((MouseEvent event) -> dragAnchor = new Point2D(event.getX(), event.getY()));
 
         graph.setOnMouseDragged((MouseEvent event) -> {
             double deltaX = dragAnchor.getX() - event.getX();
@@ -214,22 +212,39 @@ public class MainController implements Initializable {
         XYChart.Series<Number, Number> parabolaSeries = new XYChart.Series<>();
         parabolaSeries.setName(name);
 
-        double min = isHorizontal ? yAxisLowerBound : xAxisLowerBound;
-        double max = isHorizontal ? yAxisUpperBound : xAxisUpperBound;
-        double step = (max - min) / 400;
+        double min = isHorizontal ? minYAxisBound : minXAxisBound;
+        double max = isHorizontal ? maxYAxisBound : maxXAxisBound;
+        double step = 0.1;
 
-        for (double x = min; x <= max; x += step) {
-            double y;
-            if (isHorizontal) {
-                y = (a * x * x) + (b * x) + c;
-                parabolaSeries.getData().add(new XYChart.Data<>(y, x));
-            } else {
-                y = (a * x * x) + (b * x) + c;
+        if (isHorizontal) {
+            XYChart.Series<Number, Number> seriesPos = new XYChart.Series<>();
+            XYChart.Series<Number, Number> seriesNeg = new XYChart.Series<>();
+
+            seriesPos.setName(name);
+            seriesPos.setName(name);
+
+            for (double x = min; x <= max; x += step) {
+                double insideSqrt = b * b - 4 * a * c + 4 * a * x;
+                if (insideSqrt >= 0) {
+                    double sqrtVal = Math.sqrt(insideSqrt);
+                    double y1 = (-b + sqrtVal) / (2 * a);
+                    double y2 = (-b - sqrtVal) / (2 * a);
+
+                    seriesPos.getData().add(new XYChart.Data<>(x, y1));
+                    seriesNeg.getData().add(new XYChart.Data<>(x, y2));
+                }
+            }
+
+            graph.getData().add(seriesPos);
+            graph.getData().add(seriesNeg);
+        } else {
+            for (double x = min; x <= max; x += step) {
+                double y = (a * x * x) + (b * x) + c;
                 parabolaSeries.getData().add(new XYChart.Data<>(x, y));
             }
-        }
 
-        graph.getData().add(parabolaSeries);
+            graph.getData().add(parabolaSeries);
+        }
     }
 
 
