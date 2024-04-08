@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.shuchiproject.MainController">
+   <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" prefHeight="373.0" prefWidth="229.0" spacing="10.0">
+      <Label text="Parabola Calculator">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="promptTxt" text="Enter a quadratic!" />
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="238.0" spacing="5.0">
+         <ComboBox fx:id="dependentVarBox" prefHeight="26.0" prefWidth="55.0" />
+         <Label text="=" />
+         <TextField fx:id="squaredCoefficientInput" alignment="CENTER" prefHeight="26.0" prefWidth="30.0" promptText="a" />
+         <Label fx:id="independentSquaredTxt" />
+         <Label text="+" />
+         <TextField fx:id="coefficientInput" alignment="CENTER" prefHeight="26.0" prefWidth="30.0" promptText="b" />
+         <Label fx:id="independentTxt" />
+         <Label text="+" />
+         <TextField fx:id="constantInput" alignment="CENTER" prefHeight="26.0" prefWidth="30.0" promptText="c" />
+      </HBox>
+      <Button fx:id="computeBtn" mnemonicParsing="false" onAction="#compute" prefHeight="26.0" prefWidth="227.0" text="Compute" />
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="229.0" spacing="10.0">
+         <Label prefHeight="17.0" prefWidth="60.0" text="Vertex" textAlignment="CENTER" />
+         <TextField fx:id="vertexOutput" editable="false" prefHeight="26.0" prefWidth="120.0" />
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="229.0" spacing="10.0">
+         <Label prefHeight="17.0" prefWidth="59.0" text="Focus" textAlignment="CENTER" />
+         <TextField fx:id="focusOutput" editable="false" prefHeight="26.0" prefWidth="120.0" />
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="229.0" spacing="10.0">
+         <Label prefHeight="17.0" prefWidth="60.0" text="Directrix" textAlignment="CENTER" />
+         <TextField fx:id="directrixOutput" editable="false" prefHeight="26.0" prefWidth="120.0" />
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="229.0" spacing="10.0">
+         <Label prefHeight="17.0" prefWidth="60.0" text="Derivative" textAlignment="CENTER" />
+         <TextField fx:id="derivativeOutput" editable="false" prefHeight="26.0" prefWidth="120.0" />
+      </HBox>
+   </VBox>
+   <VBox alignment="CENTER" layoutX="254.0" layoutY="14.0" prefHeight="373.0" prefWidth="337.0">
+      <LineChart fx:id="graph" createSymbols="false">
+         <xAxis>
+            <NumberAxis minorTickVisible="false" side="BOTTOM" fx:id="xAxis" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis fx:id="yAxis" minorTickVisible="false" side="LEFT" />
+         </yAxis>
+      </LineChart>
+   </VBox>
+</AnchorPane>
