@@ -29,6 +29,7 @@ public class MainController implements Initializable {
     private double yAxisLowerBound;
     private double yAxisUpperBound;
 
+    // The maximum that the graph will display
     private final double minXAxisBound = -500;
     private final double maxXAxisBound = 500;
     private final double minYAxisBound = -500;
@@ -37,6 +38,7 @@ public class MainController implements Initializable {
     private Point2D dragAnchor;
 
     @Override
+    // Sets up the graph and adds a listener to check for the updating of the dropdown
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dependentVarBox.getItems().addAll("y", "x");
 
@@ -81,7 +83,6 @@ public class MainController implements Initializable {
             plotPoint(quadratic.getFocusX(), quadratic.getFocusY(), "Focus");
             plotLine(quadratic.getDirectrixValue(), quadratic.isDirectrixHorizontal(), "Directrix");
             plotLine(quadratic.getDerivativeA(), quadratic.getDerivativeB(), "Derivative");
-
         } catch (Exception e) {
             promptTxt.setText("Please enter valid, non-zero numbers.");
         }
@@ -101,6 +102,7 @@ public class MainController implements Initializable {
         yAxis.setLabel("Y Axis");
     }
 
+    // Sets up listeners for scroll, zoom, click, and drag
     private void setupChartInteractions() {
         xAxisLowerBound = xAxis.getLowerBound();
         xAxisUpperBound = xAxis.getUpperBound();
@@ -216,6 +218,7 @@ public class MainController implements Initializable {
         double max = isHorizontal ? maxYAxisBound : maxXAxisBound;
         double step = 0.1;
 
+        // If horizontal, need to graph two sqrt functions to make it look like a parabola
         if (isHorizontal) {
             XYChart.Series<Number, Number> seriesPos = new XYChart.Series<>();
             XYChart.Series<Number, Number> seriesNeg = new XYChart.Series<>();
