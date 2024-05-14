@@ -119,6 +119,10 @@ public class Quadratic {
             operation = '-';
         }
 
+        if (B == 0) {
+            return DEPENDENT_VAR + " = " + getDerivativeA() + independentVar;
+        }
+
         return DEPENDENT_VAR + " = " + getDerivativeA() + independentVar + " " + operation + " " + Math.abs(getDerivativeB());
     }
 
