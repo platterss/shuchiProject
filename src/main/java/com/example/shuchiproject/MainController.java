@@ -1,5 +1,6 @@
 package com.example.shuchiproject;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.chart.LineChart;
@@ -67,14 +68,11 @@ public class MainController implements Initializable {
             b = Double.parseDouble(coefficientInput.getText());
             c = Double.parseDouble(constantInput.getText());
 
-            promptTxt.setText("Enter a quadratic!");
-
             Quadratic quadratic = new Quadratic(((String) dependentVarBox.getValue()).charAt(0), a, b, c);
 
             vertexOutput.setText(quadratic.getVertex());
             focusOutput.setText(quadratic.getFocus());
             directrixOutput.setText(quadratic.getDirectrix());
-            derivativeOutput.setText(quadratic.getDerivative());
 
             graph.getData().clear();
 
@@ -82,10 +80,29 @@ public class MainController implements Initializable {
             plotPoint(quadratic.getH(), quadratic.getK(), "Vertex");
             plotPoint(quadratic.getFocusX(), quadratic.getFocusY(), "Focus");
             plotLine(quadratic.getDirectrixValue(), quadratic.isDirectrixHorizontal(), "Directrix");
-            plotLine(quadratic.getDerivativeA(), quadratic.getDerivativeB(), "Derivative");
+
+            if (quadratic.isDirectrixHorizontal()) {
+                derivativeOutput.setText(quadratic.getDerivative());
+                plotLine(quadratic.getDerivativeA(), quadratic.getDerivativeB(), "Derivative");
+            } else {
+                derivativeOutput.setText("N/A");
+            }
         } catch (Exception e) {
             promptTxt.setText("Please enter valid, non-zero numbers.");
         }
+    }
+
+    @FXML
+    private void clearScreen() {
+        squaredCoefficientInput.setText("");
+        coefficientInput.setText("");
+        constantInput.setText("");
+
+        graph.getData().clear();
+        vertexOutput.setText("");
+        focusOutput.setText("");
+        directrixOutput.setText("");
+        derivativeOutput.setText("");
     }
 
     private void setupAxes() {
